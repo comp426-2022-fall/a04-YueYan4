@@ -75,11 +75,8 @@ app.use((req, res) => {
   res.status(404).send("404 NOT FOUND").end()
 })
 
-app.get('/', () => {
-  console.log("Server listening on port " + port)
-})
-app.listen(port, (req, res)=> {
- // console.log("Server listening on port " + port)
+app.listen(port, (err)=> {
+  console.log("Server port is " + port)
 })
 
-
+//console.log("Server listening on port " + port)
