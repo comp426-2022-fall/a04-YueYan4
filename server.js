@@ -33,42 +33,42 @@ var sides = 6
 var rolls = 1
 var dice = 2
 
-app.get('/app/roll/', (req,res,next) => {
-  console.log(req.body)
-  var isSides = req.query.sides;
+app.get('/app/roll/:sides', (req,res,next) => {
+  sides = parseInt(req.params.sides)
+ // console.log(sides)
+  res.send(require('./lib/lib/roll.js').roll(sides, dice, rolls)).end()
+})
+
+app.get('/app/roll/:sides/:dice/', (req,res,next) => {
+  sides = parseInt(req.params.sides)
+  dice = parseInt(req.params.dice)
+  res.send(require('./lib/lib/roll.js').roll(sides, dice, rolls)).end()
+})
+
+app.get('/app/roll/:sides/:dice/:rolls', (req,res,next) => {
+  sides = parseInt(req.params.sides)
+  dice = parseInt(req.params.dice)
+  rolls = parseInt(req.params.rolls)
+  res.send(require('./lib/lib/roll.js').roll(sides, dice, rolls)).end()
+})
+
+app.use('/app/roll/', (req,res,next) => {
+//  console.log(req.body)
+  var isSides = req.params.sides;
   if(isSides){
    sides = isSides
   }
-  var isRolls = req.query.rolls
+  var isRolls = req.params.rolls
   if(isRolls){
    rolls = isRolls
   }
-  var isDice = req.query.dice
+  var isDice = req.params.dice
   if(isDice){
    dice = isDice
   }
   res.send(require('./lib/lib/roll.js').roll(sides, dice, rolls)).end()
 })
-
-app.get('/app/roll/:sides', (req,res,next) => {
-  sides = req.params.sides
-  res.send(require('./lib/lib/roll.js').roll(sides, dice, rolls)).end()
-})
-
-app.get('/app/roll/:sides/:dice/', (req,res,next) => {
-  sides = req.params.sides
-  dice = req.params.dice
-  res.send(require('./lib/lib/roll.js').roll(sides, dice, rolls)).end()
-})
-
-app.get('/app/roll/:sides/:dice/:rolls', (req,res,next) => {
-  sides = req.params.sides
-  dice = req.params.dice
-  rolls = req.params.rolls
-  res.send(require('./lib/lib/roll.js').roll(sides, dice, rolls)).end()
-})
-
-app.use((req, res) => {
+app.get('/app/nonexistant/',(req, res) => {
 //  console.log(req.body)
   var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
 //  console.log(fullUrl)
