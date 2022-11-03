@@ -62,3 +62,8 @@ app.use((req, res) => {
 app.listen(port, (req, res)=> {
  // console.log("Server listening on port " + port)
 })
+
+if(typeof window === 'undefined'){
+console.log("Server listening on port " + port)
+process.exit()
+}
