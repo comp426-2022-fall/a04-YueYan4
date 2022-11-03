@@ -4,7 +4,7 @@ const express = require('express')
 
 const app = express()
 
-const port = 5000
+var port = 5000
 
 //import minimist from 'minimist'
 const minimist = require('minimist')
