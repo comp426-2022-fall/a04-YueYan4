@@ -17,7 +17,7 @@ if(args.port) {
   port = args.port
 }
 
-app.use('/app/', (req,res) => {
+app.get('/app/', (req,res) => {
   res.send("200 OK").end()
 })
 
@@ -28,20 +28,37 @@ var sides = 6
 var rolls = 1
 var dice = 2
 
-app.post('/app/roll/', (res,req,next) => {
-  console.log("HI")
-  sides = req.body.sides
-  rolls = req.body.rolls
-  dice = req.body.dice
-  console.log("HERE")
-  const roll = require('./lib/lib/roll.js').roll
-  res.status(200).send(roll(sides, dice, rolls))
+app.get('/app/roll/', (req,res,next) => {
+  if(Object.keys(req.body).length != 0) {
+    sides = req.body.sides
+    rolls = req.body.rolls
+    dice = req.body.dice
+  }
+  res.send(require('./lib/lib/roll.js').roll(sides, dice, rolls))
+})
+
+app.get('/app/roll/:sides', (req,res,next) => {
+  sides = req.params.sides
+  res.send(require('./lib/lib/roll.js').roll(sides, dice, rolls))
+})
+
+app.get('/app/roll/:sides/:dice/', (req,res,next) => {
+  sides = req.params.sides
+  dice = req.params.dice
+  res.send(require('./lib/lib/roll.js').roll(sides, dice, rolls))
+})
+
+app.get('/app/roll/:sides/:dice/:rolls', (req,res,next) => {
+  sides = req.params.sides
+  dice = req.params.dice
+  rolls = req.params.rolls
+  res.send(require('./lib/lib/roll.js').roll(sides, dice, rolls))
 })
 
 app.use((req, res) => {
   res.status(404).send("404 NOT FOUND").end()
 })
 
-app.listen(port, ()=> {
-  console.log("Server listening on port " + port)
+app.listen(port, (req, res)=> {
+ // console.log("Server listening on port " + port)
 })
