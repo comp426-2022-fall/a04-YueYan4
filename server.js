@@ -68,9 +68,9 @@ app.use('/app/roll/', (req,res,next) => {
   }
   res.send(require('./lib/lib/roll.js').roll(sides, dice, rolls)).end()
 })
-app.get('/app/nonexistant/',(req, res) => {
+app.use((req, res) => {
 //  console.log(req.body)
-  var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+  //var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
 //  console.log(fullUrl)
   res.status(404).send("404 NOT FOUND").end()
 })
