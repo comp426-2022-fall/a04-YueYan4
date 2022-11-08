@@ -77,7 +77,7 @@ app.use((req, res) => {
 })
 
 app.listen(port, (err)=> {
-  console.log("Server port is " + port)
+  //console.log("Server port is " + port)
 })
 
 //console.log("Server listening on port " + port)
